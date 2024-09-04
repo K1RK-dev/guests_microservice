@@ -10,4 +10,9 @@ class Guest extends Model
     use HasFactory;
 
     protected $fillable = ['firstname', 'lastname', 'phone', 'email'];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

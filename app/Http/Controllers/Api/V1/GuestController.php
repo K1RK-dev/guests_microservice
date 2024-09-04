@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGuestRequest;
 use App\Http\Requests\UpdateGuestRequest;
+use App\Http\Resources\V1\GuestResource;
 use App\Models\Guest;
 
 class GuestController extends Controller
@@ -16,7 +17,7 @@ class GuestController extends Controller
      */
     public function index()
     {
-        return Guest::all();
+        return GuestResource::collection(Guest::all());
     }
 
     /**
@@ -27,7 +28,7 @@ class GuestController extends Controller
      */
     public function store(StoreGuestRequest $request)
     {
-        return Guest::create($request->all());
+        return new GuestResource(Guest::create($request->all()));
     }
 
     /**
@@ -38,7 +39,7 @@ class GuestController extends Controller
      */
     public function show(Guest $guest)
     {
-        return $guest;
+        return new GuestResource($guest);
     }
 
     /**
@@ -51,7 +52,7 @@ class GuestController extends Controller
     public function update(UpdateGuestRequest $request, Guest $guest)
     {
         $guest->update($request->all());
-        return $guest;
+        return new GuestResource($guest);
     }
 
     /**
@@ -63,6 +64,8 @@ class GuestController extends Controller
     public function destroy(Guest $guest)
     {
         $guest->delete();
-        return $guest['id'];
+        return response()->json([
+            'message' => 'Success'
+        ]);
     }
 }
