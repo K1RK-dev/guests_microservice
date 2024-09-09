@@ -20,7 +20,7 @@ class GuestResource extends JsonResource
             'lastname' => $this->lastname,
             'phone' => $this->phone,
             'email' => $this->email,
-            'country' => $this->country ? $this->country->name : null
+            'country_id' => $this->country_id
         ];
     }
 }

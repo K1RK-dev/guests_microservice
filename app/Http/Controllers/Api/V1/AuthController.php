@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -19,7 +19,7 @@ class AuthController extends Controller
         if(!Auth::attempt($request->only(['email', 'password']))) {
             return response()->json([
                 'message' => 'Wrong email or password!'
-            ], 401);
+            ], Response::HTTP_UNAUTHORIZED);
         }
         $user = User::query()->where('email', $request->email)->first();
         $user->tokens()->delete();

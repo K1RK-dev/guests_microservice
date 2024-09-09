@@ -6,14 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGuestRequest;
 use App\Http\Requests\UpdateGuestRequest;
 use App\Http\Resources\V1\GuestResource;
+use App\Models\Country;
 use App\Models\Guest;
+use App\Utils\PhoneNumberUtils;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class GuestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -23,31 +28,48 @@ class GuestController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreGuestRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreGuestRequest  $request
+     * @return GuestResource | JsonResponse
      */
     public function store(StoreGuestRequest $request)
     {
-        return new GuestResource(Guest::create($request->all()));
+        $data = $request->all();
+        if(!isset($data['country_id'])){
+            $dialCode = PhoneNumberUtils::parseDialCodeByPhoneNumber($request->input('phone', ''));
+            if(empty($dialCode)){
+                return response()->json([
+                    'message' => 'Cannot find country by phone number'
+                ]);
+            }
+            $data['country_id'] = Country::getCountryByDialCode($dialCode);
+        }
+        return new GuestResource(Guest::create($data));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Guest  $guest
-     * @return \Illuminate\Http\Response
+     * @param  Guest  $guest
+     * @return GuestResource | JsonResponse
      */
     public function show(Guest $guest)
     {
-        return new GuestResource($guest);
+        try{
+            return new GuestResource($guest);
+        }
+        catch(ModelNotFoundException $e){
+            return response()->json([
+                'message' => 'Not found'
+            ], JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateGuestRequest  $request
-     * @param  \App\Models\Guest  $guest
-     * @return \Illuminate\Http\Response
+     * @param  UpdateGuestRequest  $request
+     * @param  Guest  $guest
+     * @return GuestResource
      */
     public function update(UpdateGuestRequest $request, Guest $guest)
     {
@@ -58,8 +80,8 @@ class GuestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Guest  $guest
-     * @return \Illuminate\Http\Response
+     * @param  Guest  $guest
+     * @return JsonResponse
      */
     public function destroy(Guest $guest)
     {

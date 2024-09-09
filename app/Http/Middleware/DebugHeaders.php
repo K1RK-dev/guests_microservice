@@ -16,9 +16,16 @@ class DebugHeaders
      */
     public function handle(Request $request, Closure $next)
     {
+        $startTime = microtime(true);
+        $memoryStart = memory_get_usage();
+
         $response = $next($request);
-        $response->headers->set('X-Debug-Time', microtime(true));
-        $response->headers->set('X-Debug-Memory', memory_get_usage());
+
+        $endTime = microtime(true);
+        $memoryEnd = memory_get_usage();
+
+        $response->headers->set('X-Debug-Time', round(($endTime - $startTime) * 1000, 3) . " ms spent");
+        $response->headers->set('X-Debug-Memory', round(($memoryEnd - $memoryStart) / 1024, 3) . " kb/s used");
 
         return $response;
     }
