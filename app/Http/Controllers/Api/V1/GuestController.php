@@ -16,8 +16,30 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class GuestController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/v1/guests",
+     *     summary="Получение списка гостей",
+     *     description="Возвращает список всех существующих гостей.",
+     *     tags={"Guests"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *          @OA\JsonContent(type="object",
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="id", type="integer"),
+     *                      @OA\Property(property="firstname", type="string"),
+     *                      @OA\Property(property="lastname", type="string"),
+     *                      @OA\Property(property="phone", type="string"),
+     *                      @OA\Property(property="email", type="string"),
+     *                      @OA\Property(property="country_id", type="integer"),
+     *                  )
+     *              )
+     *          )
+     *     )
+     * )
      *
+     * Display a listing of the resource.
      * @return AnonymousResourceCollection
      */
     public function index()
@@ -26,8 +48,37 @@ class GuestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(path="/api/v1/guests", summary="Создание нового гостя", description="Создает нового гостя по указаным параметрам.", tags={"Guests"},
+     *     @OA\Parameter(name="firstname", in="query", description="Имя гостя", required=true,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="lastname", in="query", description="Фамилия гостя", required=true,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="phone", in="query", description="Номер телефона гостя", required=true,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="email", in="query", description="Электронная почта гостя", required=false,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="country_id", in="query", description="Идентификатор страны", required=false,
+     *          @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(response=201, description="Ответ содержит полные данные о созданном госте",
+     *          @OA\JsonContent(type="object",
+     *              @OA\Property(property="data", type="object",
+     *                  @OA\Property(property="id", type="integer"),
+     *                  @OA\Property(property="firstname", type="string"),
+     *                  @OA\Property(property="lastname", type="string"),
+     *                  @OA\Property(property="phone", type="string"),
+     *                  @OA\Property(property="email", type="string"),
+     *                  @OA\Property(property="country_id", type="integer"),
+     *              ),
+     *          )
+     *     )
+     * )
      *
+     * Store a newly created resource in storage.
      * @param  StoreGuestRequest  $request
      * @return GuestResource | JsonResponse
      */
@@ -47,8 +98,28 @@ class GuestController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/v1/guests/{id}",
+     *     summary="Получение данных о госте по идентификатору.",
+     *     description="Возвращает данные о госте, по идентификатору.",
+     *     tags={"Guests"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *          @OA\JsonContent(type="object",
+     *              @OA\Property(property="data", type="object",
+     *                  @OA\Property(property="id", type="integer"),
+     *                  @OA\Property(property="firstname", type="string"),
+     *                  @OA\Property(property="lastname", type="string"),
+     *                  @OA\Property(property="phone", type="string"),
+     *                  @OA\Property(property="email", type="string"),
+     *                  @OA\Property(property="country_id", type="integer"),
+     *              ),
+     *          )
+     *     )
+     * )
      *
+     * Display the specified resource.
      * @param  Guest  $guest
      * @return GuestResource | JsonResponse
      */
@@ -65,8 +136,43 @@ class GuestController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/v1/guests/{id}",
+     *     summary="Обновление данных о госте",
+     *     description="Обновляет данные гостя по уникальному идентификатору.",
+     *     tags={"Guests"},
+     *     @OA\Parameter(name="firstname", in="query", description="Имя гостя", required=false,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="lastname", in="query", description="Фамилия гостя", required=false,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="phone", in="query", description="Номер телефона гостя", required=false,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="email", in="query", description="Электронная почта гостя", required=false,
+     *          @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(name="country_id", in="query", description="Идентификатор страны", required=false,
+     *          @OA\Schema(type="int")
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *          @OA\JsonContent(type="object",
+     *              @OA\Property(property="data", type="object",
+     *                  @OA\Property(property="id", type="integer"),
+     *                  @OA\Property(property="firstname", type="string"),
+     *                  @OA\Property(property="lastname", type="string"),
+     *                  @OA\Property(property="phone", type="string"),
+     *                  @OA\Property(property="email", type="string"),
+     *                  @OA\Property(property="country_id", type="integer"),
+     *              ),
+     *          )
+     *     )
+     * )
      *
+     * Update the specified resource in storage.
      * @param  UpdateGuestRequest  $request
      * @param  Guest  $guest
      * @return GuestResource
@@ -78,8 +184,21 @@ class GuestController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/v1/guests/{id}",
+     *     summary="Удаление гостя.",
+     *     description="Удаляет данные гостя по уникальному идентификатору.",
+     *     tags={"Guests"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *          @OA\JsonContent(type="object",
+     *              @OA\Property(property="message", type="string", example="Success"),
+     *          )
+     *     )
+     * )
      *
+     * Remove the specified resource from storage.
      * @param  Guest  $guest
      * @return JsonResponse
      */

@@ -24,9 +24,11 @@ class UpdateGuestRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' => ['required', 'string', 'max:64'],
-            'lastname' => ['required', 'string', 'max:64'],
-            'phone' => ['required', 'string', 'max:15']
+            'firstname' => ['string', 'max:64'],
+            'lastname' => ['string', 'max:64'],
+            'phone' => ['string', 'max:15'],
+            'email' => ['email'],
+            'country_id' => ['int']
         ];
     }
 }

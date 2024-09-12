@@ -28,6 +28,7 @@ class StoreGuestRequest extends FormRequest
             'lastname' => ['required', 'string', 'max:64'],
             'phone' => ['required', 'string', 'max:18', 'regex:/^\+?\d{1,3}\d{4,14}$/'],
             'email' => ['email'],
+            'country_id' => ['int']
         ];
     }
 }
