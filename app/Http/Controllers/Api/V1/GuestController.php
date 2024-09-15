@@ -21,6 +21,7 @@ class GuestController extends Controller
      *     summary="Получение списка гостей",
      *     description="Возвращает список всех существующих гостей.",
      *     tags={"Guests"},
+     *     security={{"sanctum": {}}},
      *     @OA\Response(
      *          response=200,
      *          description="Successful response",
@@ -48,7 +49,11 @@ class GuestController extends Controller
     }
 
     /**
-     * @OA\Post(path="/api/v1/guests", summary="Создание нового гостя", description="Создает нового гостя по указаным параметрам.", tags={"Guests"},
+     * @OA\Post(path="/api/v1/guests",
+     *     summary="Создание нового гостя",
+     *     description="Создает нового гостя по указаным параметрам.",
+     *     tags={"Guests"},
+     *     security={{"sanctum": {}}},
      *     @OA\Parameter(name="firstname", in="query", description="Имя гостя", required=true,
      *          @OA\Schema(type="string")
      *     ),
@@ -103,6 +108,13 @@ class GuestController extends Controller
      *     summary="Получение данных о госте по идентификатору.",
      *     description="Возвращает данные о госте, по идентификатору.",
      *     tags={"Guests"},
+     *     security={{"sanctum": {}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(type="integer"),
+     *     ),
      *     @OA\Response(
      *          response=200,
      *          description="Successful response",
@@ -141,6 +153,13 @@ class GuestController extends Controller
      *     summary="Обновление данных о госте",
      *     description="Обновляет данные гостя по уникальному идентификатору.",
      *     tags={"Guests"},
+     *     security={{"sanctum": {}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(type="integer"),
+     *     ),
      *     @OA\Parameter(name="firstname", in="query", description="Имя гостя", required=false,
      *          @OA\Schema(type="string")
      *     ),
@@ -189,6 +208,13 @@ class GuestController extends Controller
      *     summary="Удаление гостя.",
      *     description="Удаляет данные гостя по уникальному идентификатору.",
      *     tags={"Guests"},
+     *     security={{"sanctum": {}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(type="integer"),
+     *     ),
      *     @OA\Response(
      *          response=200,
      *          description="Successful response",

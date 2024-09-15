@@ -9,6 +9,12 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(title="Guests microservice API", version="0.1")
+ *
+ * @OA\SecurityScheme(
+ *      securityScheme="sanctum",
+ *      type="http",
+ *      scheme="bearer"
+ * )
  */
 class Controller extends BaseController
 {

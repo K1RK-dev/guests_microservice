@@ -13,7 +13,7 @@ class PhoneNumberUtils
     public static function parseDialCodeByPhoneNumber($phoneNumber){
         if(!$phoneNumber)
             return "";
-        $phoneNumberUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        $phoneNumberUtil = PhoneNumberUtil::getInstance();
         $phoneNumberObject = $phoneNumberUtil->parse($phoneNumber);
         $regionCode = $phoneNumberUtil->getRegionCodeForNumber($phoneNumberObject);
         if(!$regionCode)

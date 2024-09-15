@@ -25,7 +25,7 @@ class DebugHeaders
         $memoryEnd = memory_get_usage();
 
         $response->headers->set('X-Debug-Time', round(($endTime - $startTime) * 1000, 3) . " ms spent");
-        $response->headers->set('X-Debug-Memory', round(($memoryEnd - $memoryStart) / 1024, 3) . " kb/s used");
+        $response->headers->set('X-Debug-Memory', round(($memoryEnd - $memoryStart) / 1024, 3) . " kb used");
 
         return $response;
     }
