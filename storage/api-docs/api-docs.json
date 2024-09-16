@@ -161,6 +161,52 @@
                 ]
             }
         },
+        "/api/v1/countries": {
+            "get": {
+                "tags": [
+                    "Countries"
+                ],
+                "summary": "Получение списка стран",
+                "description": "Возвращает список всех существующих стран.",
+                "operationId": "5c32a253e728d0ebbb885c5b196162cd",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "dial_code": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/v1/guests": {
             "get": {
                 "tags": [
@@ -536,6 +582,10 @@
         {
             "name": "Auth",
             "description": "Auth"
+        },
+        {
+            "name": "Countries",
+            "description": "Countries"
         },
         {
             "name": "Guests",

@@ -10,6 +10,8 @@ class Country extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['dial_code', 'name'];
+
     /**
      * @param string $dialCode
      * @return mixed

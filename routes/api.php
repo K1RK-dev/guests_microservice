@@ -26,4 +26,5 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function (){
 Route::prefix('v1')->middleware(['throttle:api', 'auth:sanctum'])->group(function () {
     Route::apiResource('guests', \App\Http\Controllers\Api\V1\GuestController::class);
     Route::get('logout', [\App\Http\Controllers\Api\V1\AuthController::class, 'logout']);
+    Route::apiResource('countries', \App\Http\Controllers\Api\V1\CountriesController::class);
 });
