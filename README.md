@@ -3,22 +3,52 @@
 Микросервис реализующий API для работы с гостями, разработанный при помощи фреймворка Laravel.
 
 ## Установка
-- Клонируем репозиторий.
-- ```git clone https://github.com/K1RK-dev/guests_microservice.git```
-- Переходим в папку с проектом.
-- ```cd ./guests_microservice```
-- Переименовываем файл .env.example в .env, в нем хранятся все настройки(наименование бд, пользователи, пароли). Для тестирования можно просто переименовать и оставить настройки по умолчанию.
-- ```mv .env.example .env```
-- Собираем образы.
-- ```sudo docker-compose build```
-- Поднимаем контейнеры.
-- ```docker compose up -d```
-- Далее подключаемся к контейнеру.
-- ```docker exec -it php sh```
-- Внутри контейнера производим первоначальную настройку проекта.
-- ```composer update```
-- ```php artisan migrate```
-- ```php artisan db:seed --class=CountriesSeeder```
+1) Клонируем репозиторий.
+```
+git clone https://github.com/K1RK-dev/guests_microservice.git
+```
+
+2) Переходим в папку с проектом.
+```
+cd ./guests_microservice
+```
+
+3) Переименовываем файл .env.example в .env, в нем хранятся все настройки(наименование бд, пользователи, пароли). Для тестирования можно просто переименовать и оставить настройки по умолчанию.
+```
+mv .env.example .env
+```
+
+4) Собираем образы.
+```
+sudo docker-compose build
+```
+
+5) Поднимаем контейнеры.
+```
+docker compose up -d
+```
+
+6) Далее подключаемся к контейнеру.
+```
+docker exec -it php sh
+```
+
+7) Внутри контейнера производим первоначальную настройку проекта.
+```
+chmod 777 -R ./storage
+```
+
+```
+composer update
+```
+
+```
+php artisan migrate
+```
+
+```
+php artisan db:seed --class=CountriesSeeder
+```
 
 ## Документация
 
@@ -26,6 +56,6 @@
 Для использования методов, требующих авторазации - требуется:
 - Зарегистрировать пользователя с помощью метода Register.
 - Авторизоваться под созданным пользователем, вызвав метод Login и в ответе получить токен.
-- В SwaggerUI нажать кнопку Authorize и внести токен авторизации в формате "Bearer <token>", например: "Bearer 2|34WogEdUKj9D7jTzivZckZMn3JvA86kwn3s1Qfh4".
+- В SwaggerUI нажать кнопку Authorize и внести токен авторизации в формате "Bearer token_value", например: "Bearer 2|34WogEdUKj9D7jTzivZckZMn3JvA86kwn3s1Qfh4".
 
 
