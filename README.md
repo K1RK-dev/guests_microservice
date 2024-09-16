@@ -20,7 +20,7 @@ mv .env.example .env
 
 4) Собираем образы.
 ```
-sudo docker-compose build
+docker compose build
 ```
 
 5) Поднимаем контейнеры.

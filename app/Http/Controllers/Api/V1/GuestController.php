@@ -60,7 +60,7 @@ class GuestController extends Controller
      *     @OA\Parameter(name="lastname", in="query", description="Фамилия гостя", required=true,
      *          @OA\Schema(type="string")
      *     ),
-     *     @OA\Parameter(name="phone", in="query", description="Номер телефона гостя", required=true,
+     *     @OA\Parameter(name="phone", in="query", description="Номер телефона гостя", required=true, example="+79501111111",
      *          @OA\Schema(type="string")
      *     ),
      *     @OA\Parameter(name="email", in="query", description="Электронная почта гостя", required=false,

@@ -18,7 +18,7 @@ class CreateGuestsTable extends Migration
             $table->string('firstname', 64)->nullable(false);
             $table->string('lastname', 64)->nullable(false);
             $table->string('phone', 15)->unique()->nullable(false);
-            $table->string('email', 254)->unique();
+            $table->string('email', 254)->unique()->default("");
             $table->foreignId('country_id')->nullable()->constrained('countries')->onDelete('cascade');
             $table->timestamps();
         });

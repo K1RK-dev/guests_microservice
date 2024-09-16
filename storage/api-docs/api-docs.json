@@ -294,7 +294,8 @@
                         "required": true,
                         "schema": {
                             "type": "string"
-                        }
+                        },
+                        "example": "+79501111111"
                     },
                     {
                         "name": "email",
