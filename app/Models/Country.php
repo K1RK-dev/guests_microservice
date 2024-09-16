@@ -20,6 +20,5 @@ class Country extends Model
             ->from('countries')
             ->where('dial_code', '=', $dialCode)
             ->first()->id;
-
     }
 }
